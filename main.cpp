@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include <thread>
 #include <mutex>
 #include <sstream>
@@ -11,8 +12,6 @@
 #include <png++/png.hpp>
 
 using boost::asio::ip::tcp;
-//const std::string HOST="127.0.0.1";
-const std::string HOST="94.45.233.241";
 
 struct pixel{
 	pixel(){};
@@ -48,7 +47,9 @@ struct worker{
 	void operator ()(){
 		std::cerr<<"thread\n";
 		tcp::resolver resolver(io);
-		tcp::resolver::query q(HOST,"1234");
+		std::string host{std::getenv("PIXELHOST")};
+		std::cout<<"Host: "<<host<<std::endl;
+		tcp::resolver::query q(host,"1234");
 		auto endpoint=*resolver.resolve(q);
 		while(run){
 			sock.reset(new tcp::socket(io));
