@@ -19,5 +19,7 @@ Two modes of operation:
  The picture and the server is only read once at startup. That means the
  master cannot control running slaves but only define their startup arguments.
 
+Dependencies:
+ - boost-asio, boost-system,libpng++
 Bugs:
   The transferred image might not be totally correct
