@@ -1,0 +1,23 @@
+High performance pixelflut client
+
+Two modes of operation:
+ - Master:
+  Defines the image to send and selects the pixelflut server
+  ehe pixelflut server ip is read from the env-var "PIXELHOST". The
+  Pixelflut-port is hardcoded to 1234.
+  call with ./main Xpos Ypos picture.png threads first_column picture_width
+  Xpos and Ypos define the position to draw the picture at. Threads selects
+  the number of threads used and thereby the number of connections. First column and
+  picture_width can be used to draw only stripes of the picture.
+
+  listens on port 1337 for slave connections.
+ - Slave
+ Reads the picture and the pixelflut server from the master. Call as
+   ./main master_ip threads
+ master_ip is the ip address of the master and threads selects the number of
+ threads and  thereby the number of connections.
+ The picture and the server is only read once at startup. That means the
+ master cannot control running slaves but only define their startup arguments.
+
+Bugs:
+  The transferred image might not be totally correct
